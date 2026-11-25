@@ -11,12 +11,15 @@
     "render:d": "remotion render HazenV2-D out/HazenV2-D.mp4",
     "render:all": "npm run build && npm run render:b && npm run render:c && npm run render:d",
     "timings": "node scripts/compute-timings.mjs",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "carrusel": "node scripts/render-carousel.mjs"
   },
   "dependencies": {
+    "@remotion/bundler": "4.0.540",
     "@remotion/cli": "4.0.540",
     "@remotion/google-fonts": "4.0.540",
     "@remotion/media-utils": "4.0.540",
+    "@remotion/renderer": "4.0.540",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "remotion": "4.0.540"

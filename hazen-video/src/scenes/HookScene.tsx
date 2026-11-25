@@ -5,7 +5,7 @@ import { SceneFrame } from "../components/SceneFrame";
 import { splitWords } from "../lib/words";
 
 /** "NO", "HOY", "GRATIS"... → palabras enteras en mayúsculas = énfasis. */
-const isEmphasis = (word: string) => {
+export const isEmphasis = (word: string) => {
   const letters = word.replace(/[^\p{L}]/gu, "");
   return letters.length >= 2 && letters === letters.toUpperCase();
 };

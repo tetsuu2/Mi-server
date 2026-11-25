@@ -8,6 +8,18 @@ import {
 import { getAudioDurationInSeconds } from "@remotion/media-utils";
 import { HazenVideo, HazenVideoProps } from "./HazenVideo";
 import { DEFAULT_HOOK, FPS, HEIGHT, WIDTH } from "./constants";
+import {
+  CAROUSEL_HEIGHT,
+  CAROUSEL_HOOK,
+  CAROUSEL_SLIDES,
+  CAROUSEL_WIDTH,
+  makeSlide,
+} from "./carousel/Carousel";
+
+// Carrusel de imágenes para anuncios: una composición por slide; se renderiza
+// el frame 0. Duran 150 frames (y no 1, como un <Still>) para que <Freeze>
+// pueda mostrar los mockups del video en su estado final.
+const SLIDE_COMPONENTS = CAROUSEL_SLIDES.map((_, i) => makeSlide(i + 1));
 
 /** ¿Existe public/musica.mp3? (si no, el video se renderiza sin música) */
 const musicExists = async (): Promise<boolean> => {
@@ -71,6 +83,19 @@ export const RemotionRoot: React.FC = () => {
           durationInFrames={30 * FPS}
           defaultProps={{ hookText: v.hookText, hasMusic: false }}
           calculateMetadata={calculateMetadata}
+        />
+      ))}
+
+      {CAROUSEL_SLIDES.map((slide, i) => (
+        <Composition
+          key={slide.id}
+          id={slide.id}
+          component={SLIDE_COMPONENTS[i]}
+          width={CAROUSEL_WIDTH}
+          height={CAROUSEL_HEIGHT}
+          fps={FPS}
+          durationInFrames={150}
+          defaultProps={{ hookText: CAROUSEL_HOOK }}
         />
       ))}
     </>

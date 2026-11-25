@@ -13,7 +13,7 @@ import { wordOffset } from "../lib/words";
 const PRICE = 120000;
 
 /** 120000 → "120.000" (formato argentino, sin depender del navegador). */
-const formatARS = (n: number) =>
+export const formatARS = (n: number) =>
   Math.round(n)
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -94,7 +94,7 @@ export const OfferScene: React.FC<{ duration: number }> = ({ duration }) => {
   );
 };
 
-const HalfCard: React.FC<{ at: number; label: string }> = ({ at, label }) => {
+export const HalfCard: React.FC<{ at: number; label: string }> = ({ at, label }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const s = spring({ frame: frame - at, fps, config: SPRING_BOUNCY });

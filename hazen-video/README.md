@@ -15,6 +15,8 @@ npm run render:c            # → out/HazenV2-C.mp4
 npm run render:d            # → out/HazenV2-D.mp4
 npm run render:all          # las cuatro
 
+npm run carrusel            # → out/carrusel/01.png … 07.png (carrusel para anuncios)
+
 npm run lint                # chequeo de tipos (tsc)
 npm run timings             # recalcula los tiempos proporcionales de la voz
 ```
@@ -25,6 +27,20 @@ Para probar otro gancho sin tocar código:
 
 > Remotion solo acepta letras, números y `-` en los IDs de composición, por eso las
 > variantes se llaman `HazenV2-B`, `HazenV2-C` y `HazenV2-D` (con guion, no `_`).
+
+## Carrusel de imágenes para anuncios
+
+7 slides de 1080×1350 (4:5, feed de Instagram/Facebook; también sirve para el modo foto
+de TikTok), con la misma estética y los mismos mockups del video:
+
+1. Gancho · 2. Nadie te encuentra en Google · 3. No transmite seriedad ·
+4. El cliente no sabe cómo contactarte · 5. Del formulario a tu página en 72 hs ·
+6. $120.000 (50 % + 50 %) · 7. Cierre "Pedí tu página hoy"
+
+Textos y slides: `src/carousel/Carousel.tsx`. Para cambiar el formato, editá
+`CAROUSEL_WIDTH` / `CAROUSEL_HEIGHT`. Una sola slide:
+`npx remotion still Carrusel-03 out/carrusel/03.png`.
+Otro gancho para la primera: `npm run carrusel -- --props='{"hookText":"Tu texto"}'`.
 
 ## Archivos que podés cambiar
 

@@ -100,7 +100,7 @@ const FIELDS = [
   { label: "WhatsApp", value: "362 455 1234" },
 ];
 
-const FormScreen: React.FC<{ duration: number }> = ({ duration }) => {
+export const FormScreen: React.FC<{ duration: number }> = ({ duration }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -275,15 +275,18 @@ const CTA_H = 132;
 const FOOTER_H = 150;
 const CONTENT_H = HEADER_H + HERO_H + SERVICES_H + CTA_H + FOOTER_H;
 
-const LandingScreen: React.FC<{ frame: number; duration: number }> = ({
-  frame,
-  duration,
-}) => {
+export const LandingScreen: React.FC<{
+  frame: number;
+  duration: number;
+  /** true = landing completa y quieta, sin scroll (para imágenes fijas). */
+  still?: boolean;
+}> = ({ frame, duration, still = false }) => {
   const { fps } = useVideoConfig();
 
   // Cada bloque entra con spring desde abajo, escalonado.
   const step = Math.max(4, Math.floor(duration * 0.07));
   const enter = (i: number): React.CSSProperties => {
+    if (still) return { position: "relative", zIndex: 20 - Math.round(i * 2) };
     const s = spring({ frame: frame - i * step, fps, config: SPRING_BOUNCY });
     return {
       opacity: frame < i * step ? 0 : 1,
@@ -295,7 +298,7 @@ const LandingScreen: React.FC<{ frame: number; duration: number }> = ({
   };
 
   const scrollStart = Math.max(7 * step + 8, Math.floor(duration * 0.62));
-  const scroll = interpolate(
+  const scroll = still ? 0 : interpolate(
     frame,
     [scrollStart, duration - 3],
     [0, CONTENT_H - SCREEN_HEIGHT],
@@ -307,8 +310,8 @@ const LandingScreen: React.FC<{ frame: number; duration: number }> = ({
   );
 
   const ctaFrame = frame - 5 * step;
-  const pulse = ctaFrame > 8 ? 1 + 0.05 * Math.max(0, Math.sin(ctaFrame * 0.32)) : 1;
-  const ring = ctaFrame > 8 ? ((ctaFrame - 8) % 20) / 20 : 0;
+  const pulse = !still && ctaFrame > 8 ? 1 + 0.05 * Math.max(0, Math.sin(ctaFrame * 0.32)) : 1;
+  const ring = still ? 0.35 : ctaFrame > 8 ? ((ctaFrame - 8) % 20) / 20 : 0;
 
   return (
     <div

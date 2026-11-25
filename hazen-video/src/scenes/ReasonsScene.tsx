@@ -86,7 +86,7 @@ const ReasonTitle: React.FC<{ n: number; title: string }> = ({ n, title }) => {
 // ─── 1 · Barra de búsqueda genérica (sin logos) ──────────────────────────
 const QUERY = "abogado en Resistencia";
 
-const SearchVisual: React.FC<{ duration: number }> = ({ duration }) => {
+export const SearchVisual: React.FC<{ duration: number }> = ({ duration }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -266,7 +266,7 @@ const CROSS: [Pt, Pt, Pt, Pt] = [
   [40, -40],
 ];
 
-const CheckToCrossVisual: React.FC<{ duration: number }> = ({ duration }) => {
+export const CheckToCrossVisual: React.FC<{ duration: number }> = ({ duration }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -346,7 +346,7 @@ const QUESTIONS = [
   { text: "¿Dirección?", x: 190, y: 260, at: 28 },
 ];
 
-const LostCursorVisual: React.FC<{ duration: number }> = () => {
+export const LostCursorVisual: React.FC<{ duration: number }> = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
