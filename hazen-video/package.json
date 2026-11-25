@@ -1,0 +1,28 @@
+{
+  "name": "hazen-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Video vertical TikTok/Reels para Hazen, hecho con Remotion",
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion render HazenVideo2 out/HazenVideo2.mp4",
+    "render:b": "remotion render HazenV2-B out/HazenV2-B.mp4",
+    "render:c": "remotion render HazenV2-C out/HazenV2-C.mp4",
+    "render:d": "remotion render HazenV2-D out/HazenV2-D.mp4",
+    "render:all": "npm run build && npm run render:b && npm run render:c && npm run render:d",
+    "timings": "node scripts/compute-timings.mjs",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.540",
+    "@remotion/google-fonts": "4.0.540",
+    "@remotion/media-utils": "4.0.540",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.540"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "typescript": "5.8.3"
+  }
+}
