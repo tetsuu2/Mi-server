@@ -13,6 +13,8 @@ const common = {
 
 const variants: {id: string; props: HazenProps}[] = [
   {id: 'HazenVideo1', props: defaultHazenProps},
+  // Igual a HazenVideo1 pero con la locución, para chequear la sincronización.
+  {id: 'HazenVideo1-Voz', props: {...defaultHazenProps, withVoice: true}},
   {
     id: 'HazenV1-B',
     props: {

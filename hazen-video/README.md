@@ -12,6 +12,7 @@ npm run render       # out/HazenVideo1.mp4
 npm run render:b     # out/HazenV1-B.mp4
 npm run render:c     # out/HazenV1-C.mp4
 npm run render:d     # out/HazenV1-D.mp4
+npm run render:voz   # out/HazenVideo1-Voz.mp4 (necesita la locución en public/locucion.mp3)
 npm run render:all   # las 4
 ```
 
