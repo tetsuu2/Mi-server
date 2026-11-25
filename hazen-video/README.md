@@ -18,6 +18,20 @@ npm run render:all   # las 4
 
 > Remotion no permite `_` en los IDs de composición, por eso las variantes se llaman `HazenV1-B`, `HazenV1-C` y `HazenV1-D`.
 
+## Carrusel de anuncios (1080x1350, 4:5)
+
+7 placas con la misma historia y estilo que el video. El fondo es un panorama continuo: al deslizar, la ciudad sigue de una placa a la otra.
+
+```bash
+npm run carrusel:dentista   # out/carrusel/dentista/placa-0.png … placa-6.png
+npm run carrusel:abogado
+npm run carrusel:contador
+npm run carrusel:all
+```
+
+Placas: 1 gancho · 2 sin página no existís · 3 Instagram no alcanza · 4 HAZEN lista en 72 hs · 5 así queda tu página · 6 $120.000 50/50 · 7 cierre.
+El código está en `src/carousel/Carousel.tsx` (cada frame de la composición es una placa).
+
 ## Qué editar
 
 | Qué | Dónde |

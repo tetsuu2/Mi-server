@@ -109,7 +109,9 @@ export const Caption: React.FC<{
   highlight?: string[];
   highlightColor?: string;
   delays?: (line: CaptionLine, index: number, indexInSentence: number) => number;
-}> = ({text, top, maxWidth = 980, maxHeight, maxSize = 84, highlight = [], highlightColor = RED, delays}) => {
+  // true = sin animación (para imágenes fijas como el carrusel)
+  still?: boolean;
+}> = ({text, top, maxWidth = 980, maxHeight, maxSize = 84, highlight = [], highlightColor = RED, delays, still = false}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const {lines, size} = layoutCaption(text, {maxWidth, maxHeight, maxSize});
@@ -130,7 +132,7 @@ export const Caption: React.FC<{
       {lines.map((line, i) => {
         const k = lines.slice(0, i).filter((l) => l.sentence === line.sentence).length;
         const d = delays ? delays(line, i, k) : i * 4;
-        const a = pop(frame, fps, d);
+        const a = still ? 1 : pop(frame, fps, d);
         return (
           <CaptionBox key={i} size={size} appear={a} rotate={i % 2 ? 4 : -4}>
             {line.words.map((w, k) => (

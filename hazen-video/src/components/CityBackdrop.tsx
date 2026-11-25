@@ -86,7 +86,7 @@ const FAR: Far[] = (() => {
   const out: Far[] = [];
   let x = -500;
   let i = 0;
-  while (x < 3200) {
+  while (x < 8200) {
     const w = 60 + random(`fw${i}`) * 90;
     const h = 200 + random(`fh${i}`) * 320;
     const wins: Far['wins'] = [];
@@ -106,7 +106,7 @@ const MID: Mid[] = (() => {
   const out: Mid[] = [];
   let x = -700;
   let i = 0;
-  while (x < 3400) {
+  while (x < 8400) {
     const kind: Mid['kind'] = random(`mk${i}`) > 0.5 ? 'tower' : 'brick';
     const w = 300 + random(`mw${i}`) * 140;
     const top = kind === 'tower' ? 1160 + random(`mt${i}`) * 140 : 1260 + random(`mt${i}`) * 140;
@@ -159,14 +159,25 @@ export const CityBackdrop: React.FC<{
   pan?: number;
   drift?: number;
   dim?: number;
-}> = ({tint = 'dusk', pan = 0, drift = 0.6, dim = 0}) => {
+  // Modo panorama: todas las capas se mueven igual, así placas contiguas
+  // de un carrusel (pan = i * 1080) empalman sin cortes.
+  seamless?: boolean;
+  // Desplaza el dibujo hacia arriba (para formatos más bajos que 1920).
+  offsetY?: number;
+}> = ({tint = 'dusk', pan = 0, drift = 0.6, dim = 0, seamless = false, offsetY = 0}) => {
   const frame = useCurrentFrame();
   const p = PAL[tint];
   const cam = pan + frame * drift;
 
-  const farOff = -cam * 0.35;
-  const lightsOff = -cam * 0.6;
+  const farOff = seamless ? -cam : -cam * 0.35;
+  const lightsOff = seamless ? -cam : -cam * 0.6;
   const midOff = -cam;
+  const dashShift = ((cam % 180) + 180) % 180;
+  const clouds = seamless
+    ? CLOUDS.flatMap((c, i) =>
+        [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8].map((k) => ({key: `${i}-${k}`, x: c.x + k * 1400 + (i % 2) * 300 - cam, y: c.y, w: c.w})),
+      ).filter((c) => c.x < WIDTH + 20 && c.x + c.w > -20)
+    : CLOUDS.map((c, i) => ({key: `${i}`, x: wrapX(c.x - frame * c.s - pan * 0.1, c.w, WIDTH), y: c.y, w: c.w}));
 
   // Guirnalda de luces que se repite cada 1100 px
   const garlands: React.ReactNode[] = [];
@@ -202,7 +213,7 @@ export const CityBackdrop: React.FC<{
 
   return (
     <AbsoluteFill>
-      <svg width={WIDTH} height={HEIGHT} viewBox={`0 0 ${WIDTH} ${HEIGHT}`} style={{position: 'absolute'}}>
+      <svg width={WIDTH} height={HEIGHT} viewBox={`0 0 ${WIDTH} ${HEIGHT}`} style={{position: 'absolute', top: -offsetY}}>
         <defs>
           <linearGradient id={`sky-${tint}`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor={p.sky[0]} />
@@ -214,8 +225,8 @@ export const CityBackdrop: React.FC<{
         </defs>
         <rect width={WIDTH} height={HEIGHT} fill={`url(#sky-${tint})`} />
 
-        {CLOUDS.map((c, i) => (
-          <Cloud key={i} x={wrapX(c.x - frame * c.s - pan * 0.1, c.w, WIDTH)} y={c.y} w={c.w} p={p} />
+        {clouds.map((c) => (
+          <Cloud key={c.key} x={c.x} y={c.y} w={c.w} p={p} />
         ))}
 
         <g shapeRendering="crispEdges">
@@ -302,7 +313,7 @@ export const CityBackdrop: React.FC<{
           {Array.from({length: 8}).map((_, k) => (
             <rect
               key={k}
-              x={wrapX(k * 180 + midOff, 90, WIDTH)}
+              x={(k - 1) * 180 - dashShift}
               y={STREET + 70}
               width={90}
               height={10}

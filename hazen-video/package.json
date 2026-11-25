@@ -12,7 +12,11 @@
     "render:b": "remotion render HazenV1-B out/HazenV1-B.mp4",
     "render:c": "remotion render HazenV1-C out/HazenV1-C.mp4",
     "render:d": "remotion render HazenV1-D out/HazenV1-D.mp4",
-    "render:all": "npm run render && npm run render:b && npm run render:c && npm run render:d"
+    "render:all": "npm run render && npm run render:b && npm run render:c && npm run render:d",
+    "carrusel:dentista": "remotion render Carrusel-Dentista out/carrusel/dentista --sequence --image-format=png --image-sequence-pattern='placa-[frame].[ext]'",
+    "carrusel:abogado": "remotion render Carrusel-Abogado out/carrusel/abogado --sequence --image-format=png --image-sequence-pattern='placa-[frame].[ext]'",
+    "carrusel:contador": "remotion render Carrusel-Contador out/carrusel/contador --sequence --image-format=png --image-sequence-pattern='placa-[frame].[ext]'",
+    "carrusel:all": "npm run carrusel:dentista && npm run carrusel:abogado && npm run carrusel:contador"
   },
   "dependencies": {
     "@remotion/cli": "4.0.547",
