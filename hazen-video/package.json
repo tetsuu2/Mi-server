@@ -1,0 +1,27 @@
+{
+  "name": "hazen-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Videos publicitarios verticales de Hazen hechos con Remotion",
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "lint": "tsc --noEmit",
+    "render": "remotion render HazenVideo1 out/HazenVideo1.mp4",
+    "render:b": "remotion render HazenV1-B out/HazenV1-B.mp4",
+    "render:c": "remotion render HazenV1-C out/HazenV1-C.mp4",
+    "render:d": "remotion render HazenV1-D out/HazenV1-D.mp4",
+    "render:all": "npm run render && npm run render:b && npm run render:c && npm run render:d"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.547",
+    "@remotion/google-fonts": "4.0.547",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.547"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "typescript": "5.9.3"
+  }
+}
